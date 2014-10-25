@@ -13,31 +13,58 @@ chrome.tabs.getAllInWindow(null, function(tabs){
     }
     else{
        alert(JSON.stringify(tabs[c].title));
-    }  
-    // chrome.windows.create({
-    //     'url': 'window.html',
-    //     'type' : "panel"
-    // });
-    var req = new XMLHttpRequest();
-    req.open("GET", "/186041.lrc", true);
-    req.addEventListener("load", function(e) {
-        var txt = req.responseText;
-        console.log(txt);
-    }, false);
-    req.send(null);
-    // alert(txt);
-    // document.getElementById("showLRC").innerHTML = txt;
-    // chrome.pageCapture.saveAsMHTML(object details, function callback)
-    // var sl = document.getElementById("lrc");
-    // xmlDoc=loadXMLDoc("https://www.youtube.com/watch?v=P_WyB1Yunqw");
-    // x=xmlDoc.getElementsByTagName("title")[0];
-    // str = JSON.stringify(tabs[c].id);
-    // sl.innerHTML = str;
-    // console.log("--------"+x+"--------");
- 	// console.log(JSON.stringify(tabs[c].innerHtml));
-    // chrome.windows.create({
-    //     'url': 'window.html',
-    //     'type' : "panel"
-    // })
+    }
+    // to search for the lrc file...start
+    stored_files = ["Alarm+Me+-+Adakah+Kau+Lupa", "Eminem+-+Not+Afraid", "Jennifer+Lopez+-+Love+dont+cost+a+thing", "Eminem+-+Youre+Never+Over"];
+    count = [];
+    for (var i = 0; i < stored_files.length; i++) {
+        count.push(0);
+    };    
 
+    title = JSON.stringify(tabs[c].title);
+
+    search_name = getFileName(title);
+
+    correct_name = title.replace(/\\/g, "");
+    correct_name = correct_name.replace(' - YouTube', '');
+    correct_name = correct_name.replace('-', '');
+    correct_name = correct_name.replace(/"/g,"");
+    correct_name = correct_name.replace("  ", " ");
+
+    search_array = correct_name.split(" ");
+    alert(search_array);
+
+    name = search_file(search_array);
+    alert(name);
+
+    function getFileName(s) {
+        return s.replace(/^.*[\\\/]/, '');
+    }
+    function search_file(s) {
+        for (var i = 0; i < search_array.length; i++) {
+            for (var j = 0; j < stored_files.length; j++) {
+                if (stored_files[j].search(search_array[i]) == -1){
+                    continue;
+                }
+                else{
+                    count[j] += 1;
+                }
+            };
+        };
+        alert(count);
+        var max = 0;
+        for (var i = 0; i < count.length; i++) {
+            if(count[i] > count[max]) {
+                max = i;
+                alert(max);
+            }
+        };
+        alert(max);
+        return stored_files[max];
+    }
+    //to search for the lrc file...end
+    chrome.windows.create({
+        'url': 'window.html',
+        'type' : "panel"
+    })
 });
