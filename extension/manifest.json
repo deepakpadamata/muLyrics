@@ -5,7 +5,10 @@
   "description": "This extension demonstrates a browser action with kittens.",
   "version": "1.0",
 
-   "permissions": [ "tabs", "clipboardWrite", "storage", "\u003Call_urls\u003E", "http://*.google.com/", "https://*.google.com/" ],  
+   "permissions": [ "tabs", "clipboardWrite", "storage", 
+   				"\u003Call_urls\u003E", "http://*.google.com/", 
+   				"https://*.google.com/",
+   				"pageCapture" ],  
 
   "browser_action": {
     "default_icon": "icon.png",
