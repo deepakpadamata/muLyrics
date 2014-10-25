@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+<body>
+	<div class="container">
+		<audio id="w1" controls class="row">
+		  <!-- <source src="songs/horse.ogg" type="audio/ogg"> -->
+		  <source src="songs/Wake Me Up When September Ends.mp3" type="audio/mpeg">
+		  Your browser does not support the audio tag.
+		</audio>
+	</div>
+	<!-- <input type="file" id="files" name="files[]" multiple /> -->
+	<input type="file" id="files" name="files[]" multiple />
+	<output id="list"></output>
+	<output id="list"></output>
+
+<script>
+	function handleFileSelect(evt) {
+		var files = evt.target.files; // FileList object
+
+		// files is a FileList of File objects. List some properties.
+		var output = [];
+		for (var i = 0, f; f = files[i]; i++) {
+		  output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+		              f.size, ' bytes, last modified: ',
+		              f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+		              '</li>');
+		}
+		document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		// var files = evt.target.files; // FileList object
+		var f1 = files[0];
+		var reader = new FileReader();
+		reader.onload = (function(theFile){
+			return function(e) {
+			  // Render thumbnail.
+			  var span = document.createElement('p');
+			  span.innerHTML = ['<p class="thumb">', e.target.result, '</p>'].join('');
+			  document.getElementById('list').insertBefore(span, null);
+			};
+		})(f1);
+		reader.readAsText(f1);
+	}
+	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+</body>
+</html>
