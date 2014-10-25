@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<SCRIPT LANGUAGE="JavaScript">
+		var scrl = "Your Lyrics here hahahaha your lyrics hereh hahahah";
+		function scrlsts() {
+			scrl = scrl.substring(1, scrl.length) + scrl.substring(0, 1);
+			document.title = scrl;
+			setTimeout("scrlsts()", 100);
+		}
+</script>
+  </head>
+  <body>
+    <div>Hello, world!</div>
+    <body onLoad="scrlsts()">
+  </body>
+</html>
