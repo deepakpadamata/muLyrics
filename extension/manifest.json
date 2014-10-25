@@ -5,10 +5,6 @@
   "description": "This extension demonstrates a browser action with kittens.",
   "version": "1.0",
 
-  "permissions": [
-    "https://secure.flickr.com/"
-  ],
-
    "permissions": [ "tabs", "clipboardWrite", "storage", "\u003Call_urls\u003E" ],  
 
   "browser_action": {
