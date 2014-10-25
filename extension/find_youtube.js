@@ -1,14 +1,16 @@
 chrome.tabs.getAllInWindow(null, function(tabs){
-	var c;
-    for (var i = 0; i < tabs.length; i++) {	
-    	chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
+    var c = -1;
+    for (var i = 0; i < tabs.length; i++) { 
+        chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
 
-    	if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1) {
-    		c= i;		
-    		break;
-	    }
-	}    
- 	// alert(JSON.stringify(tabs[c].title));
+        if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1) {
+            c= i;       
+            break;
+        }
+        else
+            alert("Put YouTube daa");
+    }    
+    // alert(JSON.stringify(tabs[c].title));
 
     // to search for the lrc file...start
     stored_files = ["Alarm+Me+-+Adakah+Kau+Lupa", "Eminem+-+Not+Afraid", "Jennifer+Lopez+-+Love+dont+cost+a+thing", "Eminem+-+Youre+Never+Over"];
@@ -62,3 +64,13 @@ chrome.tabs.getAllInWindow(null, function(tabs){
 
 // "Train - \"Marry Me\" Stories as Told by Our Fans - YouTube" 
 // " Stories as Told by Our Fans - YouTube" 
+
+//     var req = new XMLHttpRequest();
+//         req.open("GET", "/186041.lrc", true);
+//         req.addEventListener("load", function(e) {
+//             var txt = req.responseText
+//             alert(txt);
+//         }, false)
+//         req.send(null);
+
+// });
