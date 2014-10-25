@@ -4,6 +4,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
     chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });                         
     }
 
- 	alert(JSON.stringify(tabs));
+ 	
+ 	alert(JSON.stringify(tabs[5].title));
 });
 
