@@ -19,9 +19,8 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
     stored_files = ["Alarm+Me+-+Adakah+Kau+Lupa", "Eminem+-+Not+Afraid", "Jennifer+Lopez+-+Love+dont+cost+a+thing", "Eminem+-+Youre+Never+Over"];
     count = [];
     for (var i = 0; i < stored_files.length; i++) {
-        count.push(-1);
-    };
-    console.log(count);
+        count.push(0);
+    };    
 
     title = JSON.stringify(tabs[c].title);
 
@@ -34,6 +33,7 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
     correct_name = correct_name.replace("  ", " ");
 
     search_array = correct_name.split(" ");
+    alert(search_array);
 
     name = search_file(search_array);
     alert(name);
@@ -44,17 +44,23 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
     function search_file(s) {
         for (var i = 0; i < search_array.length; i++) {
             for (var j = 0; j < stored_files.length; j++) {
-                count[j] += stored_files[j].search(search_array[i]);
+                if (stored_files[j].search(search_array[i]) == -1){
+                    continue;
+                }
+                else{
+                    count[j] += 1;
+                }
             };
         };
+        alert(count);
+        var max = 0;
         for (var i = 0; i < count.length; i++) {
-            var max = 0;
-            if(count[i] > count[0]) {
+            if(count[i] > count[max]) {
                 max = i;
+                alert(max);
             }
-            else
-                continue;
         };
+        alert(max);
         return stored_files[max];
     }
     //to search for the lrc file...end
