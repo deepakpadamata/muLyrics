@@ -2,7 +2,6 @@ chrome.tabs.getAllInWindow(null, function(tabs){
 	var c = -1;
     for (var i = 0; i < tabs.length; i++) {	
     	chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
-
     	if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1)
     		{
     			c= i;		
@@ -10,14 +9,15 @@ chrome.tabs.getAllInWindow(null, function(tabs){
 	    	}
 	}
     if (c == -1){
+        alert("Put Youtube da")
     }
     else{
        alert(JSON.stringify(tabs[c].title));
     }  
-    // chrome.windows.create({
-    //     'url': 'window.html',
-    //     'type' : "panel"
-    // })
+    chrome.windows.create({
+        'url': 'window.html',
+        'type' : "panel"
+    })
 
     var req = new XMLHttpRequest();
         req.open("GET", "/186041.lrc", true);
@@ -27,5 +27,4 @@ chrome.tabs.getAllInWindow(null, function(tabs){
         }, false)
         req.send(null);
 
-    
 });
