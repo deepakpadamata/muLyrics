@@ -13,4 +13,10 @@ chrome.tabs.getAllInWindow(null, function(tabs){
 	}    
  
  	alert(JSON.stringify(tabs[c].title));
+
+    chrome.windows.create({
+        'url': 'window.html',
+        'type' : "panel"
+    })
+
 });
