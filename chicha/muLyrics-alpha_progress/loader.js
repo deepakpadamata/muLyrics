@@ -1,7 +1,6 @@
 var songLyric={};
 var start, stop;
 var key, value;
-
 //YouTube finding tab start
 chrome.tabs.getAllInWindow(null, function(tabs){
 	var c = -1;
@@ -48,6 +47,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
                 }
             };
             // console.log(songLyric);
+            // document.getElementsByTagName("title")[0].innerHTML = songLyric[0];
             var allKeys = Object.keys(songLyric);
             // console.log(allKeys);
             var a,b,index,val;
@@ -74,6 +74,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
     req.addEventListener("load", function(e) {
         var stored_files = req.responseText
         stored_files = stored_files.split("\n");
+        // alert(stored_files);
         count = [];
         for (var i = 0; i < stored_files.length; i++) {
             count.push(0);
@@ -90,6 +91,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
         correct_name = correct_name.replace("  ", " ");
 
         search_array = correct_name.split(" ");
+        // alert(search_array);
 
         for (var i = 0; i < search_array.length; i++) {
             for (var j = 0; j < stored_files.length; j++) {
