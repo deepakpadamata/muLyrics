@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+
+  "name": "One-click infobars",
+  "description": "This extension demonstrates a browser action with kittens.",
+  "version": "1.0",
+
+  "permissions": [
+    "https://secure.flickr.com/", "infobars"
+  ],
+  "icons": {
+    "16":"icon.png"
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  }
+}

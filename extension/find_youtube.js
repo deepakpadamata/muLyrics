@@ -1,14 +1,13 @@
-chrome.tabs.getAllInWindow(null, function(tabs, $scope){
-    var c = -1;
-    for (var i = 0; i < tabs.length; i++) {
-        alert(tabs[i].id);
-        chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
-        if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1)
-            {
-                c= i;       
-                break;
-            }
-    }
+chrome.tabs.getAllInWindow(null, function(tabs){
+	var c = -1;
+    for (var i = 0; i < tabs.length; i++) {	
+    	chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
+    	if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1)
+    		{
+    			c = i;		
+    			break;
+	    	}
+	}
     if (c == -1){
         alert("Put Youtube da")
     }
@@ -18,7 +17,6 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
 
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
             // LOG THE CONTENTS HERE
-            alert(request.content.search("ytp-time-current"));
             alert(request.content[request.content.search("ytp-time-current")+18]);
             alert(request.content[request.content.search("ytp-time-current")+20]);
             alert(request.content[request.content.search("ytp-time-current")+21]);
@@ -126,7 +124,3 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
 
 
 });
-
-
-
-// });
