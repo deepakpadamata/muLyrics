@@ -3,16 +3,37 @@
 <head>
 	<title>Local Song-Lyric Player</title>
 </head>
-<link rel="stylesheet" type="text/css" href="playSongLyric.css">
+<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <body>
-	<p id="title"></p>
-	<audio controls preload="auto" autoplay id="ap">
-	  <!-- <source src="horse.ogg" type="audio/ogg"> -->
-	  <source src="Jennifer_Lopez-Let_It_Be_Me.mp3" type="audio/mpeg">
-	  Your browser does not support the audio element.
-	</audio>
-	<p id="lyric"></p>
-	<!-- <p id="pp"></p> -->
-	<script src="convertLRC.js"></script>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Team Gen</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="#">muLyrics</a></li>       
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">About Us</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+	<div class="jumbotron">
+		<h1>muLyrics</h1>
+		<p>A Chrome extension which shows the lyrics in sync with the song played on a YouTube tab</p>
+		<p><a href="#" class="btn btn-primary btn-lg">Download the extension</a></p>
+	</div>
+</div>
 </body>
 </html>
