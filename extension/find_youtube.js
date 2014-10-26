@@ -3,14 +3,13 @@ chrome.tabs.getAllInWindow(null, function(tabs){
 	var c = -1;
     for (var i = 0; i < tabs.length; i++) {	
     	chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
-    	if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1)
-    		{
-    			c = i;		
-    			break;
-	    	}
+    	if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1) {
+    		c = i;		
+    		break;
+	    }
 	}
     if (c == -1){
-        alert("Put Youtube da")
+        alert("Put Youtube da");
     }
     else{
        alert(JSON.stringify(tabs[c].title));
