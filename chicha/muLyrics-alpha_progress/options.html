@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head><title>My Test Extension Options</title></head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+  	<div class="col-md-4">
+		Dock Position:
+	</div>
+	<div class="col-md-4">
+		<select id="position">
+		 <option value="top">top</option>
+		 <option value="bottom">bottom</option>
+		</select>
+	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-md-4">
+		<label>
+		  Opacity:
+		</label>
+	</div>
+	<div class="col-md-4">
+		<select id="opacity">
+			<input type="range" id="opacity" min="0" max="100">
+		</select>
+	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-md-4">
+		<label>
+		  Width:
+		</label>
+	</div>
+	<div class="col-md-4">
+		<input type="number" id="width">
+	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-md-4">
+		<label>
+		  Height:
+		</label>
+	</div>
+	<div class="col-md-4">
+		<input type="number" id="height">
+	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-md-4">
+		<label>
+		  Font size:
+		</label>
+	</div>
+	<div class="col-md-4">
+		<select id="fontSize">
+		 <option value="16px">Large</option>
+		 <option value="13px">Medium</option>
+		 <option value="10px">Small</option>
+		</select>
+	</div>
+  </div>
+
+	<div id="status"></div>
+	<button id="save" class="btn btn-success">Save</button>
+</div>
+
+<script src="options.js"></script>
+</body>
+</html>
