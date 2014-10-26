@@ -1,3 +1,4 @@
+//YouTube finding tab
 chrome.tabs.getAllInWindow(null, function(tabs){
 	var c = -1;
     for (var i = 0; i < tabs.length; i++) {	
@@ -14,23 +15,24 @@ chrome.tabs.getAllInWindow(null, function(tabs){
     else{
        alert(JSON.stringify(tabs[c].title));
     }
-
+//Youtube Parser
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
             // LOG THE CONTENTS HERE
-            alert(request.content[request.content.search("ytp-time-current")+18]);
-            alert(request.content[request.content.search("ytp-time-current")+20]);
-            alert(request.content[request.content.search("ytp-time-current")+21]);
+            console.log(request.content[request.content.search("ytp-time-current")+18]);
+            console.log(request.content[request.content.search("ytp-time-current")+20]);
+            console.log(request.content[request.content.search("ytp-time-current")+21]);
           });
 
-    chrome.tabs.getSelected(null, function(tab) {
+    
+    setInterval(function(){chrome.tabs.getSelected(null, function(tab) {
       // Now inject a script onto the page
-      chrome.tabs.executeScript(tabs[c].id, {
+        chrome.tabs.executeScript(tabs[c].id, {
            code: "chrome.extension.sendRequest({content: document.body.innerHTML}, function(response) { console.log('success'); });"
          }, function() { console.log('done'); });
+    })}, 1000);
 
-    });
 
-    // to search for the lrc file...start
+// to search for the lrc file...start
     var req = new XMLHttpRequest();
     req.open("GET","lyric/list.txt", true);
     req.addEventListener("load", function(e) {
@@ -86,41 +88,4 @@ chrome.tabs.getAllInWindow(null, function(tabs){
     function getFileName(s) {
         return s.replace(/^.*[\\\/]/, '');
     }
-    function search_file(s) {
-        for (var i = 0; i < search_array.length; i++) {
-            for (var j = 0; j < stored_files.length; j++) {
-                if (stored_files[j].search(search_array[i]) == -1){
-                    continue;
-                }
-                else{
-                    count[j] += 1;
-                }
-            };
-        };
-        var max = 0;
-        for (var i = 0; i < count.length; i++) {
-            if(count[i] > count[max]) {
-                max = i;
-            }
-        };
-        return stored_files[max];
-    }
-
-    // var req = new XMLHttpRequest();
-    // fullname = "/lyric/" + name + ".lrc"
-    // alert(fullname)
-    // req.open("GET",fullname, true);
-    // req.addEventListener("load", function(e) {
-    //     var txt = req.responseText
-    //     alert(txt);
-    // }, false)
-    // req.send(null);
-    //to search for the lrc file...end
-    // chrome.windows.create({
-    //     'url': 'window.html',
-    //     'type' : "panel"
-    // })
-
-
-
 });
