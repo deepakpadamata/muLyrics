@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "muLyrics-alpha",
+  "description": "This extension shows lyrics of the song playing on a YouTube tab",
+  "version": "1.0",
+
+   "permissions": ["tabs", "webRequest", "http://*/*", "https://*/*"],  
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  }
+}
