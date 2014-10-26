@@ -1,6 +1,7 @@
 chrome.tabs.getAllInWindow(null, function(tabs, $scope){
     var c = -1;
-    for (var i = 0; i < tabs.length; i++) { 
+    for (var i = 0; i < tabs.length; i++) {
+        alert(tabs[i].id);
         chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
         if((JSON.stringify(tabs[i].title).indexOf("YouTube")) > -1)
             {
@@ -13,30 +14,76 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
     }
     else{
        alert(JSON.stringify(tabs[c].title));
-    }  
+    }
+
+    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+            // LOG THE CONTENTS HERE
+            alert(request.content.search("ytp-time-current"));
+            alert(request.content[request.content.search("ytp-time-current")+18]);
+            alert(request.content[request.content.search("ytp-time-current")+20]);
+            alert(request.content[request.content.search("ytp-time-current")+21]);
+          });
+
+    chrome.tabs.getSelected(null, function(tab) {
+      // Now inject a script onto the page
+      chrome.tabs.executeScript(tabs[c].id, {
+           code: "chrome.extension.sendRequest({content: document.body.innerHTML}, function(response) { console.log('success'); });"
+         }, function() { console.log('done'); });
+
+    });
 
     // to search for the lrc file...start
-    stored_files = ["Alarm+Me+-+Adakah+Kau+Lupa", "Eminem+-+Not+Afraid", "Jennifer+Lopez+-+Love+dont+cost+a+thing", "Eminem+-+Youre+Never+Over"];
-    count = [];
-    for (var i = 0; i < stored_files.length; i++) {
-        count.push(0);
-    };    
+    var req = new XMLHttpRequest();
+    req.open("GET","lyric/list.txt", true);
+    req.addEventListener("load", function(e) {
+        var stored_files = req.responseText
+        stored_files = stored_files.split("\n");
+        count = [];
+        for (var i = 0; i < stored_files.length; i++) {
+            count.push(0);
+        };
 
-    title = JSON.stringify(tabs[c].title);
+        title = JSON.stringify(tabs[c].title);
 
-    search_name = getFileName(title);
+        search_name = getFileName(title);
 
-    correct_name = title.replace(/\\/g, "");
-    correct_name = correct_name.replace(' - YouTube', '');
-    correct_name = correct_name.replace('-', '');
-    correct_name = correct_name.replace(/"/g,"");
-    correct_name = correct_name.replace("  ", " ");
+        correct_name = title.replace(/\\/g, "");
+        correct_name = correct_name.replace(' - YouTube', '');
+        correct_name = correct_name.replace('-', '');
+        correct_name = correct_name.replace(/"/g,"");
+        correct_name = correct_name.replace("  ", " ");
 
-    search_array = correct_name.split(" ");
-    alert(search_array);
+        search_array = correct_name.split(" ");
+        // alert(search_array);
 
-    name = search_file(search_array);
-    alert(name);
+        for (var i = 0; i < search_array.length; i++) {
+            for (var j = 0; j < stored_files.length; j++) {
+                if (stored_files[j].search(search_array[i]) == -1){
+                    continue;
+                }
+                else{
+                    count[j] += 1;
+                }
+            };
+        };
+        var max = 0;
+        for (var i = 0; i < count.length; i++) {
+            if(count[i] > count[max]) {
+                max = i;
+            }
+        };
+        // alert(stored_files[max]);
+        var req1 = new XMLHttpRequest();
+        fullname = "/lyric/" + stored_files[max]
+        // alert(fullname)
+        req1.open("GET",fullname, true);
+        req1.addEventListener("load", function(e) {
+            var txt = req1.responseText;
+            alert(txt);
+        }, false)
+        req1.send(null);
+    }, false)
+    req.send(null);
 
     function getFileName(s) {
         return s.replace(/^.*[\\\/]/, '');
@@ -52,34 +99,34 @@ chrome.tabs.getAllInWindow(null, function(tabs, $scope){
                 }
             };
         };
-        alert(count);
         var max = 0;
         for (var i = 0; i < count.length; i++) {
             if(count[i] > count[max]) {
                 max = i;
-                alert(max);
             }
         };
-        alert(max);
         return stored_files[max];
     }
+
+    // var req = new XMLHttpRequest();
+    // fullname = "/lyric/" + name + ".lrc"
+    // alert(fullname)
+    // req.open("GET",fullname, true);
+    // req.addEventListener("load", function(e) {
+    //     var txt = req.responseText
+    //     alert(txt);
+    // }, false)
+    // req.send(null);
     //to search for the lrc file...end
-    chrome.windows.create({
-        'url': 'window.html',
-        'type' : "panel"
-    })
+    // chrome.windows.create({
+    //     'url': 'window.html',
+    //     'type' : "panel"
+    // })
+
+
+
 });
 
 
-// "Train - \"Marry Me\" Stories as Told by Our Fans - YouTube" 
-// " Stories as Told by Our Fans - YouTube" 
-
-//     var req = new XMLHttpRequest();
-//         req.open("GET", "/186041.lrc", true);
-//         req.addEventListener("load", function(e) {
-//             var txt = req.responseText
-//             alert(txt);
-//         }, false)
-//         req.send(null);
 
 // });
