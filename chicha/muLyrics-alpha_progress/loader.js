@@ -1,6 +1,7 @@
 var songLyric={};
 var start, stop;
 var key, value;
+var errorMessage = "Lyrics not found";
 //YouTube finding tab start
 chrome.tabs.getAllInWindow(null, function(tabs){
 	var c = -1;
@@ -25,6 +26,11 @@ chrome.tabs.getAllInWindow(null, function(tabs){
         var c = parseInt(request.content[request.content.search("ytp-time-current")+21]);
         ct = at*60 + bt*10 + c;
         str = txt;
+        // console.log("String lyric: "+str);
+        if(str==errorMessage){
+            songLyric[0] = errorMessage;
+            document.getElementsByTagName("title")[0].innerHTML = songLyric[0];
+        }
         var allKeys=[];
         for (var i = 0; i <= str.length; i++) {
             ch = str[i];
@@ -127,16 +133,22 @@ chrome.tabs.getAllInWindow(null, function(tabs){
                 max = i;
             }
         };
-        // alert(stored_files[max]);
+        console.log("Match-factor: "+count[max]);
         var req1 = new XMLHttpRequest();
-        fullname = "/lyric/" + stored_files[max]
-        console.log("File Name: " + fullname)
-        req1.open("GET",fullname, true);
-        req1.addEventListener("load", function(e) {
-            txt = req1.responseText;
-            // alert(txt);
-        }, false)
-        req1.send(null);
+        if(count[max]>1){
+            fullname = "/lyric/" + stored_files[max]
+            console.log("File Name: " + fullname)
+            req1.open("GET",fullname, true);
+            req1.addEventListener("load", function(e) {
+                txt = req1.responseText;
+                // alert(txt);
+            }, false)
+            req1.send(null);                    
+        }
+        else{
+            txt = errorMessage;
+            console.log("File Name: "+errorMessage);
+        }
     }, false)
     req.send(null);
 
