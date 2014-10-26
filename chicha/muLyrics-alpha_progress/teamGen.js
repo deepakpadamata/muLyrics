@@ -62,7 +62,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
             b = allKeys[index+1];
             for (var k in songLyric) {
                 if (k > ct-0.5 && k < ct + 0.5 && k!=0 && songLyric[k]!= "" && songLyric!=" "){
-                    console.log(songLyric[k]);
+                    document.getElementsByTagName("title")[0].innerHTML = songLyric[k];
                 }
             }
             // console.log(songLyric[allKeys[index]]);
