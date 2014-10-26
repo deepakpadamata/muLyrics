@@ -89,7 +89,12 @@ chrome.tabs.getAllInWindow(null, function(tabs){
         correct_name = correct_name.replace('-', '');
         correct_name = correct_name.replace(/"/g,"");
         correct_name = correct_name.replace("  ", " ");
+        correct_name = correct_name.replace(/\[.*?\]/g,'');
+        correct_name = correct_name.replace(/\(.*?\)/g,'');
+        correct_name = correct_name.replace(/\[.*?\)/g,'');
+        correct_name = correct_name.replace(/\(.*?\]/g,'');
 
+        alert(correct_name);
         search_array = correct_name.split(" ");
         // alert(search_array);
 
