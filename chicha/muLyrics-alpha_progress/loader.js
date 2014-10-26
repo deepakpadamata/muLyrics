@@ -19,6 +19,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
        console.log("YouTube tabname: "+JSON.stringify(tabs[c].title)); //not useful for now
     }
 
+    oldct=0;
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         // LOG THE CONTENTS HERE
         var at = parseInt(request.content[request.content.search("ytp-time-current")+18]);
@@ -75,9 +76,20 @@ chrome.tabs.getAllInWindow(null, function(tabs){
             else if(k > ct-0.5 && k < ct + 0.5){
                 document.getElementsByTagName("title")[0].innerHTML = "...";
             }
-            divContent += songLyric[k] + "<br><br>";
+            if(k > ct-0.5 && k < ct+0.5 && k!=0 && songLyric[k]!= "" && songLyric!=" "){
+                divContent += "<span class='highlighted'>" + songLyric[k] + "</span>" + "<br><br>";
+            }
+            else{
+                divContent += songLyric[k] + "<br><br>";
+            }
         }
-        document.getElementById("lyric").innerHTML = divContent;
+        // document.getElementById("lyric").innerHTML = divContent;
+        // var iScroll = $(window).scrollTop();
+        // iScroll = iScroll + 32;
+        // $('html, body').animate({
+        //     scrollTop: iScroll
+        // }, oldct - ct);
+        // oldct = ct;
     });
 
     
@@ -135,7 +147,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
         };
         console.log("Match-factor: "+count[max]);
         var req1 = new XMLHttpRequest();
-        if(count[max]>1){
+        if(count[max]>0){
             fullname = "/lyric/" + stored_files[max]
             console.log("File Name: " + fullname)
             req1.open("GET",fullname, true);
