@@ -83,7 +83,7 @@ chrome.tabs.getAllInWindow(null, function(tabs){
                 divContent += songLyric[k] + "<br><br>";
             }
         }
-        // document.getElementById("lyric").innerHTML = divContent;
+        document.getElementById("lyric").innerHTML = divContent;
         // var iScroll = $(window).scrollTop();
         // iScroll = iScroll + 32;
         // $('html, body').animate({
